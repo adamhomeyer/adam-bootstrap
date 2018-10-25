@@ -1,13 +1,15 @@
 var gulp        = require('gulp');
 var browserSync = require('browser-sync').create();
 var sass        = require('gulp-sass');
+var gutil       = require('gulp-util');
 
 // Compile sass into CSS and put into docs/css folder
 gulp.task('sass', function() {
-    return gulp.src(['node_modules/bootstrap/scss/bootstrap.scss', 'src/scss/*.scss'])
-        .pipe(sass())
-        .pipe(gulp.dest("docs/css"))
-        .pipe(browserSync.stream());
+  return gulp.src(['src/scss/*.scss'])
+      .pipe(sass())
+      .on('error', gutil.log)
+      .pipe(gulp.dest("docs/css"))
+      .pipe(browserSync.stream());
 });
 
 // Move the javascript files into our docs/js folder
